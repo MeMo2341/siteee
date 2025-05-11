@@ -1,3 +1,3 @@
 # siteee
 
-nasılsın hanımefendi
+Nasılsınız Hanımefendi bu arada yarın okula gelmiycem
