@@ -1,0 +1,1 @@
+irem beni çok yoruyosun 
