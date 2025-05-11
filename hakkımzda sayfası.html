@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda | TechBazaar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-gray: #f5f5f5;
+            --medium-gray: #ddd;
+            --dark-gray: #555;
+            --white: #fff;
+            --black: #333;
+            --success-color: #2ecc71;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header - Ana Sayfa ile Aynı */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        /* Hakkımızda Sayfası Özel Stiller */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1920x600') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .about-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .about-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            font-size: 32px;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .about-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        .mission-vision {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .mission-card, .vision-card {
+            flex: 1;
+            min-width: 300px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mission-card i, .vision-card i {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3, .vision-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .team-section {
+            margin-bottom: 60px;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 20px;
+        }
+        
+        .team-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        
+        .team-info p {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .values-section {
+            margin-bottom: 60px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .value-card:hover i {
+            color: var(--white);
+        }
+        
+        .value-card i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 60px;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Footer - Ana Sayfa ile Aynı */
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .footer-social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .footer-social-links a {
+            color: var(--white);
+            background-color: rgba(255,255,255,0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .footer-social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: var(--medium-gray);
+        }
+        
+        /* Animasyonlar */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            .about-hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .mission-vision {
+                flex-direction: column;
+            }
+            
+            .cta-section h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Ana Sayfa ile Aynı -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Tech<span>Bazaar</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="elektronik.html">Elektronik</a></li>
+                    <li><a href="#">Moda</a></li>
+                    <li><a href="#">Ev & Yaşam</a></li>
+                    <li><a href="hakkimizda.html" class="active">Hakkımızda</a></li>
+                    <li>
+                        <a href="sepet.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1>TechBazaar Hakkında</h1>
+        <p>Teknoloji tutkunları için en iyi ürünleri en uygun fiyatlarla sunuyoruz. 2010'dan beri güvenilir alışverişin adresiyiz.</p>
+    </section>
+    
+    <div class="container">
+        <!-- Hikayemiz Section -->
+        <section class="about-section">
+            <div class="about-text">
+                <h2 class="section-title">Hikayemiz</h2>
+                <p>TechBazaar, 2010 yılında küçük bir teknoloji mağazası olarak İstanbul'da kuruldu. Kurucumuz Ahmet Yılmaz'ın teknolojiye olan tutkusu ve müşteri memnuniyeti odaklı yaklaşımı sayesinde kısa sürede sektörün önde gelen e-ticaret platformlarından biri haline geldik.</p>
+                <p>Bugün, Türkiye'nin dört bir yanına hizmet veren TechBazaar olarak, geniş ürün yelpazemiz, uygun fiyat politikamız ve müşteri odaklı hizmet anlayışımızla sektörde lider konumdayız.</p>
+                <p>Her geçen gün büyüyen ekibimizle birlikte, teknoloji severlere en kaliteli ürünleri ulaştırmak için çalışmaya devam ediyoruz.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://via.placeholder.com/600x400" alt="TechBazaar Mağazası">
+            </div>
+        </section>
+        
+        <!-- Misyon & Vizyon Section -->
+        <section>
+            <h2 class="section-title">Misyon & Vizyon</h2>
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Misyonumuz</h3>
+                    <p>Teknolojiyi herkes için ulaşılabilir kılmak, müşterilerimize en kaliteli ürünleri en uygun fiyatlarla sunmak ve alışveriş deneyimini kolaylaştırmak.</p>
+                </div>
+                <div class="vision-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Vizyonumuz</h3>
+                    <p>Türkiye'nin en güvenilir ve yenilikçi teknoloji e-ticaret platformu olmak, müşteri memnuniyetinde sektör standartlarını belirlemek.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Değerlerimiz Section -->
+        <section class="values-section">
+            <h2 class="section-title">Değerlerimiz</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Güvenilirlik</h3>
+                    <p>Müşterilerimizin güvenini kazanmak en önemli önceliğimizdir.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Yenilikçilik</h3>
+                    <p>Sürekli gelişen teknolojiyi takip ediyor ve yenilikçi çözümler sunuyoruz.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Müşteri Odaklılık</h3>
+                    <p>Müşteri memnuniyeti bizim için her şeyden önce gelir.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Şeffaflık</h3>
+                    <p>Tüm iş süreçlerimizde şeffaf ve dürüst bir yaklaşım sergiliyoruz.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Takım Çalışması</h3>
+                    <p>Başarımızı çalışanlarımızın uyumlu çalışmasına borçluyuz.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Ekibimiz Section -->
+        <section class="team-section">
+            <h2 class="section-title">Ekibimiz</h2>
+            <div class="team-members">
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/300x300" alt="Ahmet Yılmaz" class="team-image">
+                    <div class="team-info">
+                        <h3>Ahmet Yılmaz</h3>
+                        <p>Kurucu & CEO</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/300x300" alt="Ayşe Kaya" class="team-image">
+                    <div class="team-info">
+                        <h3>Ayşe Kaya</h3>
+                        <p>Pazarlama Müdürü</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/300x300" alt="Mehmet Demir" class="team-image">
+                    <div class="team-info">
+                        <h3>Mehmet Demir</h3>
+                        <p>Teknoloji Direktörü</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="https://via.placeholder.com/300x300" alt="Zeynep Şahin" class="team-image">
+                    <div class="team-info">
+                        <h3>Zeynep Şahin</h3>
+                        <p>Müşteri İlişkileri Müdürü</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Teknoloji dünyasının kapılarını aralamaya hazır mısınız?</h2>
+            <p>TechBazaar ailesine katılın ve en yeni teknoloji ürünlerine avantajlı fiyatlarla sahip olun.</p>
+            <a href="elektronik.html" class="cta-button">Alışverişe Başla</a>
+        </section>
+    </div>
+    
+    <!-- Footer - Ana Sayfa ile Aynı -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>TechBazaar</h3>
+                <p>Teknoloji dünyasının en iyi ürünleri, en uygun fiyatlarla.</p>
+                <div class="footer-social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Hızlı Linkler</h3>
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="elektronik.html">Elektronik</a></li>
+                    <li><a href="#">Moda</a></li>
+                    <li><a href="#">Ev & Yaşam</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Hesap</h3>
+                <ul>
+                    <li><a href="#">Hesabım</a></li>
+                    <li><a href="#">Siparişlerim</a></li>
+                    <li><a href="#">İstek Listesi</a></li>
+                    <li><a href="#">Bülten Aboneliği</a></li>
+                    <li><a href="#">Geri Dönüşüm</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 1234 Cadde, İstanbul, Türkiye</li>
+                    <li><i class="fas fa-phone"></i> (0212) 123 45 67</li>
+                    <li><i class="fas fa-envelope"></i> info@techbazaar.com</li>
+                    <li><i class="fas fa-clock"></i> Pzt-Cmt: 09:00 - 18:00</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2023 TechBazaar. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Sayfa yüklendiğinde animasyonlar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hero animasyonu otomatik çalışıyor (CSS ile)
+            
+            // Diğer elementler için scroll animasyonu
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.about-section, .mission-card, .vision-card, .value-card, .team-card');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if(elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // İlk yüklemede kontrol et
+            animateOnScroll();
+            
+            // Scroll eventi ekle
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Tüm elementlere başlangıç değerleri atanıyor
+            const animatedElements = document.querySelectorAll('.about-section, .mission-card, .vision-card, .value-card, .team-card');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+        });
+    </script>
+</body>
+</html>

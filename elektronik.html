@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elektronik Ürünler | TechBazaar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+
+
+
+
+        /* Ana Stil Tanımları */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .sayfa-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Başlık Stilleri (Ana Sayfa ile Aynı) */
+        .site-baslik {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .ust-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .site-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .site-logo span {
+            color: #212529;
+        }
+
+        .arama-cubugu {
+            display: flex;
+            width: 50%;
+        }
+
+        .arama-cubugu input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 25px 0 0 25px;
+            outline: none;
+        }
+
+        .arama-cubugu button {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .arama-cubugu button:hover {
+            background-color: #ff6b6b;
+        }
+
+        .kullanici-aktiviteleri a {
+            margin-left: 15px;
+            color: #212529;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .kullanici-aktiviteleri a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Ana Navigasyon (Ana Sayfa ile Aynı) */
+        .ana-navigasyon {
+            background-color: #212529;
+        }
+
+        .menu-listesi {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu-listesi li {
+            position: relative;
+        }
+
+        .menu-listesi li a {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .menu-listesi li a:hover {
+            background-color: #333;
+        }
+
+        .menu-listesi li a.aktif {
+            background-color: #333;
+        }
+
+        /* Açılır Menü (Ana Sayfa ile Aynı) */
+        .alt-menu {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .alt-menu li a {
+            color: #212529;
+            padding: 12px 16px;
+        }
+
+        .alt-menu li a:hover {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .menu-listesi li:hover .alt-menu {
+            display: block;
+        }
+
+        /* İzlence (Breadcrumb - Ana Sayfa ile Aynı) */
+        .hierarsi-navigasyon {
+            padding: 15px 0;
+            font-size: 14px;
+        }
+
+        .hierarsi-navigasyon a {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .hierarsi-navigasyon a:hover {
+            color: #ff6b6b;
+        }
+
+        .hierarsi-navigasyon span {
+            margin: 0 5px;
+            color: #adb5bd;
+        }
+
+        /* Sayfa Başlığı (Ana Sayfa ile Aynı) */
+        .sayfa-basligi {
+            margin: 20px 0;
+            font-size: 28px;
+            color: #212529;
+        }
+
+        /* Filtreleme ve Ürün Alanı */
+        .filtre-urun-alani {
+            display: flex;
+            margin: 20px 0 30px;
+            gap: 20px;
+        }
+
+        /* Filtreleme Bölümü (Ana Sayfa ile Aynı Stil) */
+        .filtreler-paneli {
+            width: 25%;
+        }
+
+        .filtre-grubu {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .filtre-baslik {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #212529;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filtre-baslik i {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .filtre-secenekler {
+            list-style: none;
+        }
+
+        .filtre-secenekler li {
+            margin-bottom: 8px;
+        }
+
+        .filtre-secenekler li a {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .filtre-secenekler li a:hover {
+            color: #ff6b6b;
+        }
+
+        .filtre-secenekler li a.aktif {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .fiyat-araligi {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .fiyat-girisi {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .fiyat-girisi input {
+            width: 48%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .filtre-butonlari {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .filtre-buton {
+            padding: 8px 15px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filtre-buton:hover {
+            background-color: #ff6b6b;
+        }
+
+        .filtre-buton.sifirla {
+            background-color: #e9ecef;
+            color: #212529;
+        }
+
+        .filtre-buton.sifirla:hover {
+            background-color: #dee2e6;
+        }
+
+        /* Ürün Listesi Bölümü (Ana Sayfa ile Aynı) */
+        .urun-listesi-paneli {
+            width: 75%;
+        }
+
+        .siralama-paneli {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .siralama-secim {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .siralama-secim select {
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .gorunum-secim {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gorunum-buton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #adb5bd;
+            transition: color 0.3s;
+        }
+
+        .gorunum-buton.aktif {
+            color: #ff6b6b;
+        }
+
+        /* Ürün Grid (Ana Sayfa ile Aynı) */
+        .urun-izgara {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* Ürün Kartları (Ana Sayfa ile Aynı) */
+        .urun-karti {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .urun-karti:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .urun-etiket {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 2;
+        }
+
+        .urun-etiket.indirim {
+            background-color: #dc3545;
+        }
+
+        .urun-etiket.yeni {
+            background-color: #ff6b6b;
+        }
+
+        .urun-etiket.firsat {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .urun-resim {
+            height: 200px;
+            background-color: #f8f9fa;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .urun-detaylari {
+            padding: 15px;
+        }
+
+        .urun-detaylari h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            height: 40px;
+            overflow: hidden;
+            color: #212529;
+        }
+
+        .urun-fiyat-bilgisi {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .guncel-fiyat {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .eski-fiyat {
+            font-size: 14px;
+            color: #6c757d;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .urun-aksiyonlari {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sepete-ekle-buton {
+            padding: 8px 15px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sepete-ekle-buton:hover {
+            background-color: #ff6b6b;
+        }
+
+        .favori-buton {
+            background: none;
+            border: none;
+            color: #adb5bd;
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .favori-buton.aktif {
+            color: #dc3545;
+        }
+
+        /* Sayfalama (Ana Sayfa ile Aynı) */
+        .sayfalama {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+
+        .sayfalama a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #ffffff;
+            color: #212529;
+            text-decoration: none;
+            margin: 0 5px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .sayfalama a:hover, .sayfalama a.aktif {
+            background-color: #ff6b6b;
+            color: white;
+        }
+
+        /* Altbilgi (Ana Sayfa ile Aynı) */
+        .site-altbilgi {
+            background-color: #212529;
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+
+        .altbilgi-icerik {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .altbilgi-sutun {
+            width: 23%;
+        }
+
+        .altbilgi-sutun h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .altbilgi-sutun ul {
+            list-style: none;
+        }
+
+        .altbilgi-sutun ul li {
+            margin-bottom: 10px;
+        }
+
+        .altbilgi-sutun ul li a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .altbilgi-sutun ul li a:hover {
+            color: #ff6b6b;
+        }
+
+        .sosyal-medya-baglantilari {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .sosyal-medya-baglantilari a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #495057;
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .sosyal-medya-baglantilari a:hover {
+            background-color: #ff6b6b;
+        }
+
+        .telif-hakki {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 14px;
+        }
+
+        /* Duyarlı Tasarım (Ana Sayfa ile Aynı) */
+        @media (max-width: 992px) {
+            .filtre-urun-alani {
+                flex-direction: column;
+            }
+            
+            .filtreler-paneli, .urun-listesi-paneli {
+                width: 100%;
+            }
+            
+            .urun-izgara {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filtreler-paneli {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ust-menu {
+                flex-direction: column;
+            }
+
+            .arama-cubugu {
+                width: 100%;
+                margin: 15px 0;
+            }
+
+            .menu-listesi {
+                flex-direction: column;
+            }
+
+            .alt-menu {
+                position: static;
+                display: none;
+                width: 100%;
+            }
+            
+            .urun-izgara {
+                grid-template-columns: 1fr;
+            }
+            
+            .altbilgi-sutun {
+                width: 48%;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Başlık (Ana Sayfa ile Aynı) -->
+    <header class="site-baslik">
+        <div class="sayfa-container">
+            <div class="ust-menu">
+                <div class="site-logo">Tech<span>Bazaar</span></div>
+                <div class="arama-cubugu">
+                    <input type="text" placeholder="Aradığınız ürünü yazın...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="kullanici-aktiviteleri">
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    <a href="#"><i class="fas fa-heart"></i></a>
+                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
+        <nav class="ana-navigasyon">
+            <div class="sayfa-container">
+                <ul class="menu-listesi">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li>
+                        <a href="elektronik.html" class="aktif">Elektronik <i class="fas fa-chevron-down"></i></a>
+                        <ul class="alt-menu">
+                            <li><a href="telefon.html">Akıllı Telefonlar</a></li>
+                            <li><a href="laptop.html">Laptoplar</a></li>
+                            <li><a href="televizyon.html">Televizyonlar</a></li>
+                            <li><a href="kulaklik.html">Kulaklıklar</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Moda <i class="fas fa-chevron-down"></i></a>
+                        <ul class="alt-menu">
+                            <li><a href="#">Erkek Giyim</a></li>
+                            <li><a href="#">Kadın Giyim</a></li>
+                            <li><a href="#">Ayakkabılar</a></li>
+                            <li><a href="#">Aksesuarlar</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Ev & Yaşam <i class="fas fa-chevron-down"></i></a>
+                        <ul class="alt-menu">
+                            <li><a href="#">Mobilya</a></li>
+                            <li><a href="#">Dekorasyon</a></li>
+                            <li><a href="#">Mutfak Eşyaları</a></li>
+                            <li><a href="#">Bahçe</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Kampanyalar</a></li>
+                    <li><a href="#">Yeni Gelenler</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Elektronik Sayfası İçerik -->
+    <main class="sayfa-container">
+        <!-- İzlence Navigasyon (Breadcrumb) -->
+        <div class="hierarsi-navigasyon">
+            <a href="index.html">Ana Sayfa</a>
+            <span>/</span>
+            <a href="elektronik.html">Elektronik</a>
+        </div>
+
+        <!-- Sayfa Başlığı -->
+        <h1 class="sayfa-basligi">Elektronik Ürünler</h1>
+
+        <!-- Filtreleme ve Ürün Listesi -->
+        <div class="filtre-urun-alani">
+            <!-- Filtreleme Bölümü -->
+            <div class="filtreler-paneli">
+                <div class="filtre-grubu">
+                    <h3 class="filtre-baslik">Kategoriler <i class="fas fa-chevron-down"></i></h3>
+                    <ul class="filtre-secenekler">
+                        <li><a href="elektronik.html" class="aktif">Tüm Elektronik Ürünler</a></li>
+                        <li><a href="telefon.html">Akıllı Telefonlar</a></li>
+                        <li><a href="laptop.html">Laptoplar</a></li>
+                        <li><a href="televizyon.html">Televizyonlar</a></li>
+                        <li><a href="kulaklik.html">Kulaklıklar</a></li>
+                        <li><a href="tablet.html">Tabletler</a></li>
+                        <li><a href="kamera.html">Fotoğraf Kameraları</a></li>
+                    </ul>
+                </div>
+
+                <div class="filtre-grubu">
+                    <h3 class="filtre-baslik">Markalar <i class="fas fa-chevron-down"></i></h3>
+                    <ul class="filtre-secenekler">
+                        <li><a href="#">Apple</a></li>
+                        <li><a href="#">Samsung</a></li>
+                        <li><a href="#">Xiaomi</a></li>
+                        <li><a href="#">Huawei</a></li>
+                        <li><a href="#">LG</a></li>
+                        <li><a href="#">Sony</a></li>
+                        <li><a href="#">Asus</a></li>
+                    </ul>
+                </div>
+
+                <div class="filtre-grubu">
+                    <h3 class="filtre-baslik">Fiyat Aralığı <i class="fas fa-chevron-down"></i></h3>
+                    <input type="range" class="fiyat-araligi" min="0" max="50000" value="25000">
+                    <div class="fiyat-girisi">
+                        <input type="number" placeholder="Min" value="0">
+                        <input type="number" placeholder="Max" value="50000">
+                    </div>
+                </div>
+
+                <div class="filtre-grubu">
+                    <h3 class="filtre-baslik">Özellikler <i class="fas fa-chevron-down"></i></h3>
+                    <ul class="filtre-secenekler">
+                        <li><a href="#">Yeni Ürünler</a></li>
+                        <li><a href="#">İndirimdeki Ürünler</a></li>
+                        <li><a href="#">Hızlı Kargo</a></li>
+                        <li><a href="#">Stokta Var</a></li>
+                    </ul>
+                </div>
+
+                <div class="filtre-butonlari">
+                    <button class="filtre-buton sifirla">Filtreleri Temizle</button>
+                    <button class="filtre-buton">Filtrele</button>
+                </div>
+            </div>
+
+            <!-- Ürün Listesi Bölümü -->
+            <div class="urun-listesi-paneli">
+                <!-- Sıralama Seçenekleri -->
+                <div class="siralama-paneli">
+                    <div class="siralama-secim">
+                        <label for="siralama">Sırala:</label>
+                        <select id="siralama">
+                            <option value="populer">Popüler</option>
+                            <option value="yeni">En Yeni</option>
+                            <option value="fiyat-dusuk">Fiyat: Düşükten Yükseğe</option>
+                            <option value="fiyat-yuksek">Fiyat: Yüksekten Düşüğe</option>
+                            <option value="degerlendirme">Değerlendirme</option>
+                        </select>
+                    </div>
+                    <div class="gorunum-secim">
+                        <span>Görünüm:</span>
+                        <button class="gorunum-buton aktif"><i class="fas fa-th-large"></i></button>
+                        <button class="gorunum-buton"><i class="fas fa-list"></i></button>
+                    </div>
+                </div>
+
+                <!-- Ürün Izgara -->
+                <div class="urun-izgara">
+                    <!-- Ürün 1 -->
+                    <div class="urun-karti">
+                        <span class="urun-etiket indirim">%15 İndirim</span>
+                        <div class="urun-resim" style="background-image: url('https://via.placeholder.com/300x300');"></div>
+                        <div class="urun-detaylari">
+                            <h3>iPhone 14 Pro Max 256GB</h3>
+                            <div class="urun-fiyat-bilgisi">
+                                <span class="guncel-fiyat">₺54.999</span>
+                                <span class="eski-fiyat">₺64.999</span>
+                            </div>
+                            <div class="urun-aksiyonlari">
+                                <button class="sepete-ekle-buton">Sepete Ekle</button>
+                                <button class="favori-buton"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ürün 2 -->
+                    <div class="urun-karti">
+                        <span class="urun-etiket yeni">Yeni</span>
+                        <div class="urun-resim" style="background-image: url('https://via.placeholder.com/300x300');"></div>
+                        <div class="urun-detaylari">
+                            <h3>Samsung Galaxy S23 Ultra 512GB</h3>
+                            <div class="urun-fiyat-bilgisi">
+                                <span class="guncel-fiyat">₺42.999</span>
+                            </div>
+                            <div class="urun-aksiyonlari">
+                                <button class="sepete-ekle-buton">Sepete Ekle</button>
+                                <button class="favori-buton"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ürün 3 -->
+                    <div class="urun-karti">
+                        <div class="urun-resim" style="background-image: url('https://via.placeholder.com/300x300');"></div>
+                        <div class="urun-detaylari">
+                            <h3>Xiaomi Redmi Note 12 Pro 128GB</h3>
+                            <div class="urun-fiyat-bilgisi">
+                                <span class="guncel-fiyat">₺12.499</span>
+                                <span class="eski-fiyat">₺13.999</span>
+                            </div>
+                            <div class="urun-aksiyonlari">
+                                <button class="sepete-ekle-buton">Sepete Ekle</button>
+                                <button class="favori-buton"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ürün 4 -->
+                    <div class="urun-karti">
+                        <span class="urun-etiket firsat">Fırsat</span>
+                        <div class="urun-resim" style="background-image: url('https://via.placeholder.com/300x300');"></div>
+                        <div class="urun-detaylari">
+                            <h3>MacBook Air M2 13.6" 256GB</h3>
+                            <div class="urun-fiyat-bilgisi">
+                                <span class="guncel-fiyat">₺32.999</span>
+                                <span class="eski-fiyat">₺36.999</span>
+                            </div>
+                            <div class="urun-aksiyonlari">
+                                <button class="sepete-ekle-buton">Sepete Ekle</button>
+                                <button class="favori-buton"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ürün 5 -->
+                    <div class="urun-karti">
+                        <span class="urun-etiket indirim">%20 İndirim</span>
+                        <div class="urun-resim" style="background-image: url('https://via.placeholder.com/300x300');"></div>
+                        <div class="urun-detaylari">
+                            <h3>Sony Bravia XR 55" 4K OLED TV</h3>
+                            <div class="urun-fiyat-bilgisi">
+                                <span class="guncel-fiyat">₺44.999</span>
+                                <span class="eski-fiyat">₺56.249</span>
+                            </div>
+                            <div class="urun-aksiyonlari">
+                                <button class="sepete-ekle-buton">Sepete Ekle</button>
+                                <button class="favori-buton"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ürün 6 -->
+                    <div class="urun-karti">
+                        <div class="urun-resim" style="background-image: url('https://via.placeholder.com/300x300');"></div>
+                        <div class="urun-detaylari">
+                            <h3>Apple AirPods Pro 2.Nesil</h3>
+                            <div class="urun-fiyat-bilgisi">
+                                <span class="guncel-fiyat">₺7.499</span>
+                            </div>
+                            <div class="urun-aksiyonlari">
+                                <button class="sepete-ekle-buton">Sepete Ekle</button>
+                                <button class="favori-buton"><i class="far fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sayfalama -->
+                <div class="sayfalama">
+                    <a href="#"><i class="fas fa-chevron-left"></i></a>
+                    <a href="#" class="aktif">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Altbilgi (Ana Sayfa ile Aynı) -->
+    <footer class="site-altbilgi">
+        <div class="sayfa-container">
+            <div class="altbilgi-icerik">
+                <div class="altbilgi-sutun">
+                    <h3>TechBazaar</h3>
+                    <p>Teknoloji dünyasının en iyi ürünleri, en uygun fiyatlarla.</p>
+                    <div class="sosyal-medya-baglantilari">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="altbilgi-sutun">
+                    <h3>Hızlı Linkler</h3>
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="#">Hakkımızda</a></li>
+                        <li><a href="#">Ürünler</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="altbilgi-sutun">
+                    <h3>Müşteri Hizmetleri</h3>
+                    <ul>
+                        <li><a href="#">Hesabım</a></li>
+                        <li><a href="#">Siparişlerim</a></li>
+                        <li><a href="#">Kargo Takip</a></li>
+                        <li><a href="#">İade Politikası</a></li>
+                        <li><a href="#">Garanti Koşulları</a></li>
+                    </ul>
+                </div>
+                <div class="altbilgi-sutun">
+                    <h3>İletişim</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> İstanbul, Türkiye</li>
+                        <li><i class="fas fa-phone"></i> 0850 123 45 67</li>
+                        <li><i class="fas fa-envelope"></i> info@techbazaar.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="telif-hakki">
+                <p>&copy; 2023 TechBazaar. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript Fonksiyonları (Ana Sayfa ile Aynı)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sepete Ekle Butonları
+            const sepeteEkleButonlari = document.querySelectorAll('.sepete-ekle-buton');
+            sepeteEkleButonlari.forEach(buton => {
+                buton.addEventListener('click', function() {
+                    const urunAdi = this.closest('.urun-karti').querySelector('h3').textContent;
+                    alert(`${urunAdi} sepete eklendi!`);
+                });
+            });
+
+            // Favori Butonları
+            const favoriButonlari = document.querySelectorAll('.favori-buton');
+            favoriButonlari.forEach(buton => {
+                buton.addEventListener('click', function() {
+                    const ikon = this.querySelector('i');
+                    this.classList.toggle('aktif');
+                    
+                    if (this.classList.contains('aktif')) {
+                        ikon.classList.remove('far');
+                        ikon.classList.add('fas');
+                    } else {
+                        ikon.classList.remove('fas');
+                        ikon.classList.add('far');
+                    }
+                });
+            });
+
+            // Arama Çubuğu
+            const aramaInput = document.querySelector('.arama-cubugu input');
+            const aramaButonu = document.querySelector('.arama-cubugu button');
+            
+            aramaButonu.addEventListener('click', function() {
+                if (aramaInput.value.trim() !== '') {
+                    alert(`Aranan ürün: ${aramaInput.value}`);
+                } else {
+                    alert('Lütfen bir arama terimi girin!');
+                }
+            });
+
+            // Filtreleme Butonları
+            const filtreleButonu = document.querySelector('.filtre-buton:not(.sifirla)');
+            const sifirlaButonu = document.querySelector('.filtre-buton.sifirla');
+            
+            filtreleButonu.addEventListener('click', function() {
+                alert('Filtreleme uygulandı!');
+            });
+            
+            sifirlaButonu.addEventListener('click', function() {
+                alert('Filtreler temizlendi!');
+            });
+
+            // Görünüm Seçenekleri
+            const gorunumButonlari = document.querySelectorAll('.gorunum-buton');
+            gorunumButonlari.forEach(buton => {
+                buton.addEventListener('click', function() {
+                    gorunumButonlari.forEach(btn => btn.classList.remove('aktif'));
+                    this.classList.add('aktif');
+                    
+                    if (this.querySelector('i').classList.contains('fa-list')) {
+                        document.querySelector('.urun-izgara').style.gridTemplateColumns = '1fr';
+                    } else {
+                        document.querySelector('.urun-izgara').style.gridTemplateColumns = 'repeat(3, 1fr)';
+                    }
+                });
+            });
+
+            // Mobil Menü (Responsive için)
+            const menuListesi = document.querySelector('.menu-listesi');
+            if (window.innerWidth <= 768) {
+                menuListesi.querySelectorAll('li > a').forEach(link => {
+                    if (link.nextElementSibling && link.nextElementSibling.classList.contains('alt-menu')) {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            this.nextElementSibling.classList.toggle('show');
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

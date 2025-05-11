@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim Sayfası</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1e293b;
+            --light-bg: #f8fafc;
+        }
+
+        body {
+            background: var(--light-bg);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-right: 1.5rem;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="iletisim.html">İletişim</a>
+        <a href="giris.html">Giriş Yap</a>
+    </nav>
+    
+    <div class="contact-container">
+        <div class="contact-form">
+            <h2>Bize Ulaşın</h2>
+            <form>
+                <div class="form-group">
+                    <label>Ad Soyad</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>E-posta</label>
+                    <input type="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Mesajınız</label>
+                    <textarea class="form-control" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Gönder</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <h3>İletişim Bilgileri</h3>
+            <p>📞 0 (212) 123 45 67</p>
+            <p>📍 İstanbul, Türkiye</p>
+            <p>✉️ info@sirket.com</p>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.279637145478!2d28.87973541572025!3d41.008416528299855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa704006e4bd1%3A0x726e7f7f99e719e9!2sGalata%20Kulesi!5e0!3m2!1str!2str!4v1623930408871!5m2!1str!2str" 
+                width="100%" 
+                height="300" 
+                style="border:0; margin-top: 1.5rem;" 
+                allowfullscreen 
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>

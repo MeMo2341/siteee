@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Ürün Adı | TechBazaar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-gray: #f5f5f5;
+            --medium-gray: #ddd;
+            --dark-gray: #555;
+            --white: #fff;
+            --black: #333;
+            --success-color: #2ecc71;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header - Ana Sayfa ile Aynı */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .breadcrumb {
+            padding: 15px 0;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .product-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: zoom-in;
+        }
+        
+        .product-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-gallery {
+            display: flex;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            object-fit: cover;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary-color);
+        }
+        
+        .badge {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .product-details {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            border-left: 1px solid var(--medium-gray);
+        }
+        
+        .product-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stars {
+            color: #f1c40f;
+            margin-right: 10px;
+        }
+        
+        .review-count {
+            color: var(--primary-color);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .review-count:hover {
+            text-decoration: underline;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .current-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .original-price {
+            font-size: 18px;
+            color: var(--dark-gray);
+            text-decoration: line-through;
+        }
+        
+        .discount {
+            background-color: var(--success-color);
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .product-description {
+            margin-bottom: 25px;
+            color: var(--dark-gray);
+        }
+        
+        .product-features {
+            margin-bottom: 25px;
+        }
+        
+        .product-features li {
+            margin-bottom: 10px;
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .product-features li i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .color-options {
+            margin-bottom: 20px;
+        }
+        
+        .color-options h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .colors {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .color.selected {
+            border-color: var(--black);
+            transform: scale(1.1);
+        }
+        
+        .size-options {
+            margin-bottom: 20px;
+        }
+        
+        .size-options h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .sizes {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .size {
+            padding: 5px 10px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .size.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .size.unavailable {
+            color: var(--medium-gray);
+            text-decoration: line-through;
+            cursor: not-allowed;
+        }
+        
+        .quantity-selector {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-selector label {
+            margin-right: 15px;
+            font-weight: 500;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: var(--light-gray);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: none;
+            border-left: 1px solid var(--medium-gray);
+            border-right: 1px solid var(--medium-gray);
+        }
+        
+        .stock-status {
+            font-size: 14px;
+            color: var(--success-color);
+            margin-left: 15px;
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .wishlist-btn {
+            background-color: var(--white);
+            color: var(--black);
+            border: 1px solid var(--medium-gray);
+            padding: 12px 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .wishlist-btn:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .wishlist-btn.added {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .delivery-info {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .delivery-info i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .product-tabs {
+            margin-top: 40px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid var(--medium-gray);
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: var(--transition);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .specifications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .specifications-table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        .specifications-table th, 
+        .specifications-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .specifications-table th {
+            width: 30%;
+            color: var(--secondary-color);
+        }
+        
+        .review {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .review:last-child {
+            border-bottom: none;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .review-author {
+            font-weight: 600;
+        }
+        
+        .review-date {
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+        
+        .review-rating {
+            color: #f1c40f;
+            margin: 5px 0;
+        }
+        
+        .related-products {
+            margin-top: 50px;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            font-size: 24px;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .related-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-card-body {
+            padding: 15px;
+        }
+        
+        .product-card-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .product-card-price {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .product-card-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .product-card-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+        
+        .product-card-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .product-card-wishlist {
+            background: none;
+            border: none;
+            color: var(--dark-gray);
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .product-card-wishlist:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Footer - Ana Sayfa ile Aynı */
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            background-color: rgba(255,255,255,0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: var(--medium-gray);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            .product-container {
+                flex-direction: column;
+            }
+            
+            .product-details {
+                border-left: none;
+                border-top: 1px solid var(--medium-gray);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .add-to-cart, .wishlist-btn {
+                justify-content: center;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-gray);
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Ana Sayfa ile Aynı -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Tech<span>Bazaar</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="elektronik.html">Elektronik</a></li>
+                    <li><a href="#">Moda</a></li>
+                    <li><a href="#">Ev & Yaşam</a></li>
+                    <li><a href="#">Kampanyalar</a></li>
+                    <li>
+                        <a href="sepet.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Ana Sayfa</a> > <a href="elektronik.html">Elektronik</a> > <a href="telefon.html">Telefonlar</a> > <span>iPhone 14 Pro Max</span>
+        </div>
+        
+        <div class="product-container fade-in">
+            <div class="product-image">
+                <span class="badge">%25 İndirim</span>
+                <img src="https://via.placeholder.com/600x400" alt="iPhone 14 Pro Max" id="main-image">
+                <div class="image-gallery">
+                    <img src="https://via.placeholder.com/200x150" alt="Ürün 1" class="thumbnail active" onclick="changeImage(this, 'https://via.placeholder.com/600x400')">
+                    <img src="https://via.placeholder.com/200x150/cccccc" alt="Ürün 2" class="thumbnail" onclick="changeImage(this, 'https://via.placeholder.com/600x400/cccccc')">
+                    <img src="https://via.placeholder.com/200x150/999999" alt="Ürün 3" class="thumbnail" onclick="changeImage(this, 'https://via.placeholder.com/600x400/999999')">
+                    <img src="https://via.placeholder.com/200x150/666666" alt="Ürün 4" class="thumbnail" onclick="changeImage(this, 'https://via.placeholder.com/600x400/666666')">
+                </div>
+            </div>
+            
+            <div class="product-details">
+                <h1 class="product-title">iPhone 14 Pro Max 256GB</h1>
+                
+                <div class="product-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="review-count" onclick="openModal('reviews-modal')">142 Değerlendirme</span>
+                </div>
+                
+                <div class="product-price">
+                    <span class="current-price">₺54.999</span>
+                    <span class="original-price">₺64.999</span>
+                    <span class="discount">%25 Tasarruf</span>
+                </div>
+                
+                <div class="product-description">
+                    <p>iPhone 14 Pro Max, yenilikçi Dynamic Island, 48 MP ana kamera ve çığır açan güvenlik özellikleriyle akıllı telefon deneyimini yeniden tanımlıyor. A16 Bionic çip ile inanılmaz bir performans sunar.</p>
+                </div>
+                
+                <div class="color-options">
+                    <h3>Renk Seçenekleri:</h3>
+                    <div class="colors">
+                        <div class="color selected" style="background-color: #2c3e50;" title="Uzay Siyahı" onclick="selectColor(this)"></div>
+                        <div class="color" style="background-color: #bdc3c7;" title="Gümüş" onclick="selectColor(this)"></div>
+                        <div class="color" style="background-color: #e74c3c;" title="Altın" onclick="selectColor(this)"></div>
+                        <div class="color" style="background-color: #3498db;" title="Derin Mor" onclick="selectColor(this)"></div>
+                    </div>
+                </div>
+                
+                <div class="size-options">
+                    <h3>Depolama Seçenekleri:</h3>
+                    <div class="sizes">
+                        <div class="size" onclick="selectSize(this)">128GB</div>
+                        <div class="size selected" onclick="selectSize(this)">256GB</div>
+                        <div class="size" onclick="selectSize(this)">512GB</div>
+                        <div class="size" onclick="selectSize(this)">1TB</div>
+                    </div>
+                </div>
+                
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> 6.7 inç Super Retina XDR ekran</li>
+                    <li><i class="fas fa-check"></i> Dynamic Island ve Always-On ekran</li>
+                    <li><i class="fas fa-check"></i> 48 MP ana kamera</li>
+                    <li><i class="fas fa-check"></i> A16 Bionic çip</li>
+                    <li><i class="fas fa-check"></i> Çarpma Algılama ve Acil SOS</li>
+                </ul>
+                
+                <div class="quantity-selector">
+                    <label for="quantity">Adet:</label>
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" class="quantity-input" readonly>
+                        <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                    <span class="stock-status"><i class="fas fa-check-circle"></i> Stokta var</span>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="add-to-cart" onclick="addToCart()">
+                        <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                    </button>
+                    <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                        <i class="far fa-heart"></i> İstek Listesi
+                    </button>
+                </div>
+                
+                <div class="delivery-info">
+                    <p><i class="fas fa-truck"></i> <strong>Ücretsiz Kargo:</strong> 100 TL ve üzeri alışverişlerde</p>
+                    <p><i class="fas fa-undo"></i> <strong>Kolay İade:</strong> 14 gün içinde iade imkanı</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="product-tabs">
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="openTab(event, 'description')">Ürün Açıklaması</button>
+                <button class="tab-btn" onclick="openTab(event, 'specs')">Teknik Özellikler</button>
+                <button class="tab-btn" onclick="openTab(event, 'reviews')">Yorumlar (142)</button>
+                <button class="tab-btn" onclick="openTab(event, 'qna')">S.S.S.</button>
+            </div>
+            
+            <div id="description" class="tab-content active">
+                <h3>Detaylı Ürün Açıklaması</h3>
+                <p>iPhone 14 Pro Max, Apple'ın en gelişmiş teknolojilerini bir araya getiriyor. Dynamic Island, bildirimleri ve etkinlikleri erişilebilir ve keyifli bir şekilde sunarken, 48 MP ana kamera ile profesyonel düzeyde fotoğraflar çekebilirsiniz.</p>
+                <p>Always-On ekran özelliği sayesinde ekranınızı kilitlemeden bile önemli bilgileri görebilirsiniz. A16 Bionic çip, en zorlu görevlerde bile yüksek performans sunar. Çarpma Algılama ve Acil SOS uydu bağlantısı ile güvenliğiniz her zaman ön plandadır.</p>
+                <img src="https://via.placeholder.com/800x300" alt="iPhone 14 Pro Max Detay" style="width: 100%; margin-top: 20px; border-radius: 5px;">
+            </div>
+            
+            <div id="specs" class="tab-content">
+                <h3>Teknik Özellikler</h3>
+                <table class="specifications-table">
+                    <tr>
+                        <th>Marka</th>
+                        <td>Apple</td>
+                    </tr>
+                    <tr>
+                        <th>Model</th>
+                        <td>iPhone 14 Pro Max</td>
+                    </tr>
+                    <tr>
+                        <th>Ekran</th>
+                        <td>6.7 inç Super Retina XDR, Always-On</td>
+                    </tr>
+                    <tr>
+                        <th>İşlemci</th>
+                        <td>A16 Bionic çip</td>
+                    </tr>
+                    <tr>
+                        <th>Kamera</th>
+                        <td>48 MP ana, 12 MP ultra geniş, 12 MP telefoto</td>
+                    </tr>
+                    <tr>
+                        <th>Depolama</th>
+                        <td>256GB</td>
+                    </tr>
+                    <tr>
+                        <th>Pil</th>
+                        <td>29 saate kadar video oynatma</td>
+                    </tr>
+                    <tr>
+                        <th>Garanti</th>
+                        <td>2 Yıl</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id="reviews" class="tab-content">
+                <h3>Müşteri Yorumları</h3>
+                <div class="review">
+                    <div class="review-header">
+                        <span class="review-author">Ahmet Y.</span>
+                        <span class="review-date">15 Ekim 2023</span>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>Ürün gerçekten çok kaliteli, kamera performansı mükemmel. Dynamic Island çok kullanışlı bir özellik. Kargo da çok hızlıydı, ertesi gün elime ulaştı.</p>
+                </div>
+                
+                <div class="review">
+                    <div class="review-header">
+                        <span class="review-author">Ayşe K.</span>
+                        <span class="review-date">8 Ekim 2023</span>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p>Genel olarak memnun kaldım ancak pil ömrü beklediğim kadar uzun değil. Bunun dışında her şey çok iyi.</p>
+                </div>
+                
+                <button class="add-to-cart" style="margin-top: 20px;" onclick="openModal('reviews-modal')">
+                    <i class="fas fa-pen"></i> Yorum Yap
+                </button>
+            </div>
+            
+            <div id="qna" class="tab-content">
+                <h3>Sık Sorulan Sorular</h3>
+                <div class="review">
+                    <div class="review-header">
+                        <span class="review-author">Ürünün kargo süresi ne kadar?</span>
+                    </div>
+                    <p>Siparişleriniz 1-3 iş günü içerisinde kargoya verilir. Kargo süresi bulunduğunuz konuma göre değişiklik gösterebilir.</p>
+                </div>
+                
+                <div class="review">
+                    <div class="review-header">
+                        <span class="review-author">İade süreci nasıl işliyor?</span>
+                    </div>
+                    <p>14 gün içerisinde ürünü iade edebilirsiniz. Ürünün orijinal ambalajında ve hasarsız olması gerekmektedir.</p>
+                </div>
+                
+                <div class="review">
+                    <div class="review-header">
+                        <span class="review-author">Garanti kapsamı neleri içeriyor?</span>
+                    </div>
+                    <p>2 yıl garanti kapsamında üretim hatalarına karşı ücretsiz tamir veya değişim hizmeti sunuyoruz.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="related-products">
+            <h2 class="section-title">Benzer Ürünler</h2>
+            <div class="related-items">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200" alt="iPhone 14 Pro" class="product-card-img">
+                    <div class="product-card-body">
+                        <h3 class="product-card-title">iPhone 14 Pro 256GB</h3>
+                        <p class="product-card-price">₺49.999</p>
+                        <div class="product-card-actions">
+                            <button class="product-card-btn">Sepete Ekle</button>
+                            <button class="product-card-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200/cccccc" alt="Samsung Galaxy S23 Ultra" class="product-card-img">
+                    <div class="product-card-body">
+                        <h3 class="product-card-title">Samsung Galaxy S23 Ultra 256GB</h3>
+                        <p class="product-card-price">₺42.999</p>
+                        <div class="product-card-actions">
+                            <button class="product-card-btn">Sepete Ekle</button>
+                            <button class="product-card-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200/999999" alt="iPhone 13 Pro Max" class="product-card-img">
+                    <div class="product-card-body">
+                        <h3 class="product-card-title">iPhone 13 Pro Max 256GB</h3>
+                        <p class="product-card-price">₺39.999</p>
+                        <div class="product-card-actions">
+                            <button class="product-card-btn">Sepete Ekle</button>
+                            <button class="product-card-wishlist"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer - Ana Sayfa ile Aynı -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>TechBazaar</h3>
+                <p>Teknoloji dünyasının en iyi ürünleri, en uygun fiyatlarla.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Hızlı Linkler</h3>
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="elektronik.html">Elektronik</a></li>
+                    <li><a href="#">Moda</a></li>
+                    <li><a href="#">Ev & Yaşam</a></li>
+                    <li><a href="#">Kampanyalar</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Hesap</h3>
+                <ul>
+                    <li><a href="#">Hesabım</a></li>
+                    <li><a href="#">Siparişlerim</a></li>
+                    <li><a href="#">İstek Listesi</a></li>
+                    <li><a href="#">Bülten Aboneliği</a></li>
+                    <li><a href="#">Geri Dönüşüm</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 1234 Cadde, İstanbul, Türkiye</li>
+                    <li><i class="fas fa-phone" style="margin-right: 10px;"></i> (0212) 123 45 67</li>
+                    <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@techbazaar.com</li>
+                    <li><i class="fas fa-clock" style="margin-right: 10px;"></i> Pzt-Cmt: 09:00 - 18:00</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2023 TechBazaar. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal Pencereler -->
+    <div id="reviews-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('reviews-modal')">&times;</span>
+            <h2>Yorum Yap</h2>
+            <form id="review-form">
+                <div style="margin-bottom: 15px;">
+                    <label for="review-rating" style="display: block; margin-bottom: 5px;">Puanınız:</label>
+                    <div class="stars" id="rating-stars">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="review-rating" name="rating" value="0">
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="review-name" style="display: block; margin-bottom: 5px;">Adınız:</label>
+                    <input type="text" id="review-name" name="name" required style="width: 100%; padding: 8px; border: 1px solid var(--medium-gray); border-radius: 4px;">
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="review-comment" style="display: block; margin-bottom: 5px;">Yorumunuz:</label>
+                    <textarea id="review-comment" name="comment" rows="5" required style="width: 100%; padding: 8px; border: 1px solid var(--medium-gray); border-radius: 4px;"></textarea>
+                </div>
+                
+                <button type="submit" class="add-to-cart" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Yorumu Gönder
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="image-modal" class="modal">
+        <div class="modal-content" style="background: transparent; box-shadow: none; padding: 0;">
+            <span class="close-modal" onclick="closeModal('image-modal')" style="color: white; text-shadow: 0 0 5px black;">&times;</span>
+            <img src="" alt="Büyütülmüş Resim" id="zoomed-image" style="max-width: 100%; max-height: 80vh; display: block; margin: 0 auto;">
+        </div>
+    </div>
+    
+    <!-- Toast Bildirimi -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Ürün sepete eklendi!</span>
+    </div>
+    
+    <script>
+        // Ürün görselini değiştirme
+        function changeImage(element, newSrc) {
+            // Tüm thumbnail'lerden active class'ını kaldır
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            
+            // Tıklanan thumbnail'e active class'ını ekle
+            element.classList.add('active');
+            
+            // Ana görseli değiştir
+            document.getElementById('main-image').src = newSrc;
+        }
+        
+        // Renk seçimi
+        function selectColor(element) {
+            // Tüm renklerden selected class'ını kaldır
+            document.querySelectorAll('.color').forEach(color => {
+                color.classList.remove('selected');
+            });
+            
+            // Tıklanan renge selected class'ını ekle
+            element.classList.add('selected');
+        }
+        
+        // Boyut seçimi
+        function selectSize(element) {
+            // Eğer boyut müsait değilse işlem yapma
+            if (element.classList.contains('unavailable')) return;
+            
+            // Tüm boyutlardan selected class'ını kaldır
+            document.querySelectorAll('.size').forEach(size => {
+                size.classList.remove('selected');
+            });
+            
+            // Tıklanan boyuta selected class'ını ekle
+            element.classList.add('selected');
+        }
+        
+        // Miktar değiştirme
+        function changeQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value);
+            let newValue = currentValue + change;
+            
+            // Minimum 1, maksimum 10 olacak şekilde sınırla
+            if (newValue < 1) newValue = 1;
+            if (newValue > 10) newValue = 10;
+            
+            quantityInput.value = newValue;
+        }
+        
+        // Sepete ekleme
+        function addToCart() {
+            // Sepet sayısını artır
+            const cartCount = document.querySelector('.cart-count');
+            let currentCount = parseInt(cartCount.textContent);
+            cartCount.textContent = currentCount + 1;
+            
+            // Toast bildirimi göster
+            showToast('Ürün sepete eklendi!');
+        }
+        
+        // İstek listesi butonu
+        function toggleWishlist(element) {
+            element.classList.toggle('added');
+            
+            const icon = element.querySelector('i');
+            if (element.classList.contains('added')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                showToast('Ürün istek listesine eklendi!');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                showToast('Ürün istek listesinden çıkarıldı!');
+            }
+        }
+        
+        // Tab değiştirme
+        function openTab(evt, tabName) {
+            // Tüm tab içeriklerini gizle
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Tüm tab butonlarından active class'ını kaldır
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Seçilen tab içeriğini göster
+            document.getElementById(tabName).classList.add('active');
+            
+            // Tıklanan butona active class'ını ekle
+            evt.currentTarget.classList.add('active');
+        }
+        
+        // Modal açma
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Modal kapatma
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Toast bildirimi göster
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            // 3 saniye sonra toast'ı gizle
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Puanlama yıldızları
+        document.querySelectorAll('#rating-stars i').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.getAttribute('data-rating'));
+                const stars = document.querySelectorAll('#rating-stars i');
+                
+                // Tüm yıldızları sıfırla
+                stars.forEach(s => {
+                    s.classList.remove('fas');
+                    s.classList.add('far');
+                });
+                
+                // Seçilen yıldıza kadar doldur
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.remove('far');
+                    stars[i].classList.add('fas');
+                }
+                
+                // Hidden input'a değeri ata
+                document.getElementById('review-rating').value = rating;
+            });
+        });
+        
+        // Yorum formu gönderimi
+        document.getElementById('review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Burada form verilerini işleyebilir veya AJAX ile sunucuya gönderebilirsiniz
+            // Şimdilik sadece modalı kapatıp toast gösteriyoruz
+            closeModal('reviews-modal');
+            showToast('Yorumunuz için teşekkür ederiz!');
+            this.reset();
+            
+            // Yıldızları sıfırla
+            document.querySelectorAll('#rating-stars i').forEach(star => {
+                star.classList.remove('fas');
+                star.classList.add('far');
+            });
+            document.getElementById('review-rating').value = 0;
+        });
+        
+        // Ana görsele tıklayarak büyütme
+        document.getElementById('main-image').addEventListener('click', function() {
+            const zoomedImage = document.getElementById('zoomed-image');
+            zoomedImage.src = this.src;
+            openModal('image-modal');
+        });
+        
+        // Sayfa yüklendiğinde fade-in animasyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
